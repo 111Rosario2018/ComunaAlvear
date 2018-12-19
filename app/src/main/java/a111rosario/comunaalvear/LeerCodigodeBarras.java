@@ -47,7 +47,7 @@ public class LeerCodigodeBarras extends Activity implements ZBarScannerView.Resu
         //Log.e(TAG,rawResult.getContents()); // Prints scan results
         //Log.e(TAG, rawResult.getBarcodeFormat().getName()); // Prints the scan format (qrcode, pdf417 etc.)
 
-        String codigo=rawResult.getContents().toString();//creo un string en el cual asigno el número del codigo de barra que lee la funcion
+        String codigo=rawResult.getContents().toString();//creo un string en el cual asigno el número del codigo de barra que lee la función
 
 
         if(codigo!=null) {//Si el string codigo no está vacio quiere decir que la app pudo leer el codigo de barra entonces vuelva a la activity del formulario
