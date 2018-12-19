@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Formulario"
+    android:orientation="vertical">
+
+    <EditText
+        android:paddingTop="30dp"
+        android:id="@+id/edt_idmedidor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Número de Medidor"
+        />
+    <Button
+
+        android:id="@+id/btn_leercodigo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="KeyCode"
+        android:onClick="obtenercodigo"
+        />
+
+    <EditText
+        android:id="@+id/edt_direccion"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Direccion"/>
+    <EditText
+        android:id="@+id/edt_consumo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Consumo"/>
+
+    <Spinner
+        android:id="@+id/spn_novedades"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="15dp"
+
+        >
+
+
+    </Spinner>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Observaciones"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="#010306"/>
+    <EditText
+        android:id="@+id/edt_observasiones"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        />
+
+
+    <Button
+        android:id="@+id/btn_enviar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enviar"/>
+
+
+</LinearLayout>
