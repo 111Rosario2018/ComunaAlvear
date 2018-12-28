@@ -1,6 +1,10 @@
 package a111rosario.comunaalvear;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class Formulario extends AppCompatActivity {
 
@@ -25,10 +30,19 @@ public class Formulario extends AppCompatActivity {
 
     Bundle Codigodevuelto;//el Bundle sirve para poder mover información de un activity a otro
 
+    private final int REQUEST_ACCES_FINE=0;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
+
+        //solicitar permisos para celulares mas nuevo
+
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED){//si los permisos no están dados, los pide
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA},REQUEST_ACCES_FINE);
+        }
 
 
         //instanciando elementos
@@ -53,15 +67,26 @@ public class Formulario extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) { //esto nos muestra el cartel si se dieron o no los permisos
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if(requestCode==REQUEST_ACCES_FINE){
+            if(grantResults.length>0&& grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                Toast.makeText(this,"Permisos de cámara concedidos",Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(this,"Permisos de cámara denegados",Toast.LENGTH_SHORT).show();
+            }
+        }
+
+
+    }
+
     public void obtenercodigo(View v){
-
-
 
 
         Intent intent=new Intent(this,LeerCodigodeBarras.class);
         startActivity(intent);
-
-
 
 
     }
