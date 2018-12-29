@@ -15,14 +15,15 @@
         android:hint="Número de Medidor"
         android:inputType="number"
         />
+
     <Button
 
         android:id="@+id/btn_leercodigo"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="KeyCode"
         android:onClick="obtenercodigo"
-        />
+        android:text="KeyCode" />
 
     <EditText
         android:id="@+id/edt_direccion"
@@ -64,9 +65,10 @@
 
     <Button
         android:id="@+id/btn_enviar"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enviar"/>
+        android:text="Enviar" />
 
 
 </LinearLayout>

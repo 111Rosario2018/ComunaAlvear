@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -30,22 +31,12 @@ public class Formulario extends AppCompatActivity {
 
     Bundle Codigodevuelto;//el Bundle sirve para poder mover información de un activity a otro
 
-    private final int REQUEST_ACCES_FINE=0;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
 
-        //solicitar permisos para celulares mas nuevo
-
-        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED){//si los permisos no están dados, los pide
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA},REQUEST_ACCES_FINE);
-        }
-
-
-        //instanciando elementos
+        //Instanciando elementos
         edt_idmedidor=findViewById(R.id.edt_idmedidor);
         edt_direccion=findViewById(R.id.edt_direccion);
         edt_consumo=findViewById(R.id.edt_consumo);
@@ -53,8 +44,7 @@ public class Formulario extends AppCompatActivity {
         btn_leercodigo=findViewById(R.id.btn_leercodigo);
         btn_enviar=findViewById(R.id.btn_enviar);
 
-
-        //en este caso al Spinner hay que agregarle el array String que cree en values/arreglonovedades
+        //En este caso al Spinner hay que agregarle el array String que cree en values/arreglonovedades
         spn_novedades=findViewById(R.id.spn_novedades);
         ArrayAdapter<String> adapter=new ArrayAdapter(this,android.R.layout.simple_spinner_item,novedad);
         spn_novedades.setAdapter(adapter);
@@ -64,21 +54,6 @@ public class Formulario extends AppCompatActivity {
             edt_idmedidor.setText(codigoDebarra);
 
         }
-
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) { //esto nos muestra el cartel si se dieron o no los permisos
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if(requestCode==REQUEST_ACCES_FINE){
-            if(grantResults.length>0&& grantResults[0]==PackageManager.PERMISSION_GRANTED){
-                Toast.makeText(this,"Permisos de cámara concedidos",Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(this,"Permisos de cámara denegados",Toast.LENGTH_SHORT).show();
-            }
-        }
-
 
     }
 
