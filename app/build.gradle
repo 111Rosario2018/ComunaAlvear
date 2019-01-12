@@ -27,6 +27,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    compile 'me.dm7.barcodescanner:zbar:1.9.8'//se agrega la librería del lector de codigodebarras
+    implementation 'me.dm7.barcodescanner:zbar:1.9.8'//se agrega la librería del lector de codigodebarras
 
 }

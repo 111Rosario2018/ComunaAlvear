@@ -16,21 +16,22 @@
         android:inputType="number"
         />
 
-    <Button
-
-        android:id="@+id/btn_leercodigo"
-        style="@style/Widget.AppCompat.Button.Colored"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="obtenercodigo"
-        android:text="KeyCode" />
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/edt_direccion"
-        android:padding="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Direccion"/>
+        <Button
+
+            android:id="@+id/btn_leercodigo"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="205dp"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content"
+            android:background="@drawable/boton_redondo"
+            android:onClick="obtenercodigo"
+            android:text="KeyCode" />
+    </RelativeLayout>
+
     <EditText
         android:id="@+id/edt_consumo"
         android:layout_width="match_parent"
@@ -40,35 +41,30 @@
     <Spinner
         android:id="@+id/spn_novedades"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="15dp"
-
-        >
-
-
+        android:layout_height="60dp">
     </Spinner>
 
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Observaciones"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:textColor="#010306"/>
     <EditText
         android:id="@+id/edt_observasiones"
         android:layout_width="match_parent"
+        android:hint="Observaciones"
         android:layout_height="80dp"
         />
 
 
-    <Button
-        android:id="@+id/btn_enviar"
-        style="@style/Widget.AppCompat.Button.Colored"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Enviar" />
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_enviar"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="205dp"
+            android:background="@drawable/boton_redondo"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Enviar" />
+    </RelativeLayout>
 
 
 </LinearLayout>

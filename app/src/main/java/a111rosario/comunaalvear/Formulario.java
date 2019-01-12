@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +21,6 @@ public class Formulario extends AppCompatActivity {
 
 
     EditText edt_idmedidor;
-    EditText edt_direccion;
     EditText edt_consumo;
 
     Button btn_leercodigo;
@@ -35,10 +35,10 @@ public class Formulario extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
-
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
         //Instanciando elementos
         edt_idmedidor=findViewById(R.id.edt_idmedidor);
-        edt_direccion=findViewById(R.id.edt_direccion);
         edt_consumo=findViewById(R.id.edt_consumo);
 
         btn_leercodigo=findViewById(R.id.btn_leercodigo);
