@@ -3,6 +3,8 @@ package a111rosario.comunaalvear;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
+import android.renderscript.ScriptGroup;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -16,6 +18,16 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 
 public class Formulario extends AppCompatActivity {
 
@@ -38,9 +50,8 @@ public class Formulario extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
         //Instanciando elementos
-        edt_idmedidor=findViewById(R.id.edt_idmedidor);
         edt_consumo=findViewById(R.id.edt_consumo);
-
+        edt_idmedidor=findViewById(R.id.edt_idmedidor);
         btn_leercodigo=findViewById(R.id.btn_leercodigo);
         btn_enviar=findViewById(R.id.btn_enviar);
 
@@ -57,6 +68,15 @@ public class Formulario extends AppCompatActivity {
 
     }
 
+    public void save(View v) {
+        edt_consumo=findViewById(R.id.edt_consumo);
+        edt_idmedidor=findViewById(R.id.edt_idmedidor);
+        String myconsumo = edt_consumo.getText().toString();
+        String medidor = edt_idmedidor.getText().toString();
+        Backgroundtask b1 = new Backgroundtask();
+        b1.execute(myconsumo,medidor);
+    }
+
     public void obtenercodigo(View v){
 
 
@@ -68,4 +88,56 @@ public class Formulario extends AppCompatActivity {
     public void set_Codigo(String codigo){
         edt_idmedidor.setText(codigo);
     }
+    class Backgroundtask extends AsyncTask<String,Void,String> {
+        String myurl;
+
+        @Override
+        protected String doInBackground(String... voids) {
+            String consumo = voids[0];
+            String medidor = voids[1];
+
+            try {
+                URL url = new URL(myurl);
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                String my_data = URLEncoder.encode(consumo, "UTF-8");
+                String my_data2 = URLEncoder.encode(medidor, "UTF-8");
+                String params = "consumo=" + my_data + "&" + "medidor=" + my_data2;
+                BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                bw.write(params);
+                bw.flush();
+                bw.close();
+                outputStream.close();
+                InputStream inputStream = httpURLConnection.getInputStream();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return "Se hizo el update xd";
+            }catch (MalformedURLException e) {
+                e.printStackTrace();
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            myurl = "http://192.168.1.16/db/agregar.php";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+    }
 }
+

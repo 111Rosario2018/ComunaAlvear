@@ -3,6 +3,7 @@
     package="a111rosario.comunaalvear">
 
     <uses-permission android:name="android.permission.CAMERA"/>//pedir permisos para usar la cámara
+    <uses-permission android:name="android.permission.INTERNET" /> //Permisos para usar internet
 
     <application
         android:allowBackup="true"
