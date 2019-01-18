@@ -126,7 +126,7 @@ public class Formulario extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            myurl = "http://192.168.1.16/db/agregar.php";
+            myurl = "http://comunaalvear.eu5.org/db/agregar.php";
         }
 
         @Override

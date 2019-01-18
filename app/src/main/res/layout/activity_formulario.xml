@@ -36,7 +36,8 @@
         android:id="@+id/edt_consumo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Consumo"/>
+        android:hint="Consumo"
+        android:inputType="number" />
 
     <Spinner
         android:id="@+id/spn_novedades"
