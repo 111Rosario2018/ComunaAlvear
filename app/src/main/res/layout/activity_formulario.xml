@@ -8,13 +8,11 @@
     android:orientation="vertical">
 
     <EditText
-        android:paddingTop="30dp"
         android:id="@+id/edt_idmedidor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Número de Medidor"
-        android:inputType="number"
-        />
+        android:paddingTop="30dp" />
 
     <RelativeLayout
         android:layout_width="match_parent"

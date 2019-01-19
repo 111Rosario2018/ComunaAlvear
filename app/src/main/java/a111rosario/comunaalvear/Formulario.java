@@ -28,6 +28,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class Formulario extends AppCompatActivity {
 
@@ -56,7 +59,6 @@ public class Formulario extends AppCompatActivity {
         edt_observaciones=findViewById(R.id.edt_observaciones);
         btn_leercodigo=findViewById(R.id.btn_leercodigo);
         btn_enviar=findViewById(R.id.btn_enviar);
-
         //En este caso al Spinner hay que agregarle el array String que cree en values/arreglonovedades
         spn_novedades=findViewById(R.id.spn_novedades);
         ArrayAdapter<String> adapter=new ArrayAdapter(this,android.R.layout.simple_spinner_item,novedad);
@@ -65,7 +67,6 @@ public class Formulario extends AppCompatActivity {
         if(Codigodevuelto!=null){
             String codigoDebarra=Codigodevuelto.getString("codigo");
             edt_idmedidor.setText(codigoDebarra);
-
         }
 
     }
@@ -75,21 +76,22 @@ public class Formulario extends AppCompatActivity {
         edt_idmedidor=findViewById(R.id.edt_idmedidor);
         String myconsumo = edt_consumo.getText().toString();
         String medidor = edt_idmedidor.getText().toString();
+        //Se obtiene la fecha
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        Date date = new Date();
+        String actFecha = dateFormat.format(date);
+        //
         Backgroundtask b1 = new Backgroundtask();
 
-        b1.execute(myconsumo,medidor);
+        b1.execute(myconsumo,medidor,actFecha);
 
 
 
     }
 
     public void obtenercodigo(View v){
-
-
         Intent intent=new Intent(this,LeerCodigodeBarras.class);
         startActivity(intent);
-
-
     }
     public void set_Codigo(String codigo){
         edt_idmedidor.setText(codigo);
@@ -98,11 +100,11 @@ public class Formulario extends AppCompatActivity {
         String myurl;
 
        public boolean vaciar_formulario=false;
-
         @Override
         protected String doInBackground(String... voids) {
             String consumo = voids[0];
             String medidor = voids[1];
+            String fecha = voids[2];
 
             try {
                 URL url = new URL(myurl);
@@ -112,7 +114,8 @@ public class Formulario extends AppCompatActivity {
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 String my_data = URLEncoder.encode(consumo, "UTF-8");
                 String my_data2 = URLEncoder.encode(medidor, "UTF-8");
-                String params = "consumo=" + my_data + "&" + "medidor=" + my_data2;
+                String my_data_fecha = URLEncoder.encode(fecha, "UTF-8");
+                String params = "consumo=" + my_data + "&" + "medidor=" + my_data2 + "&" + "fecha=" + my_data_fecha;
                 BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
                 bw.write(params);
                 bw.flush();
