@@ -34,6 +34,7 @@ public class Formulario extends AppCompatActivity {
 
     EditText edt_idmedidor;
     EditText edt_consumo;
+    EditText edt_observaciones;
 
     Button btn_leercodigo;
     Button btn_enviar;
@@ -52,6 +53,7 @@ public class Formulario extends AppCompatActivity {
         //Instanciando elementos
         edt_consumo=findViewById(R.id.edt_consumo);
         edt_idmedidor=findViewById(R.id.edt_idmedidor);
+        edt_observaciones=findViewById(R.id.edt_observaciones);
         btn_leercodigo=findViewById(R.id.btn_leercodigo);
         btn_enviar=findViewById(R.id.btn_enviar);
 
@@ -74,7 +76,11 @@ public class Formulario extends AppCompatActivity {
         String myconsumo = edt_consumo.getText().toString();
         String medidor = edt_idmedidor.getText().toString();
         Backgroundtask b1 = new Backgroundtask();
+
         b1.execute(myconsumo,medidor);
+
+
+
     }
 
     public void obtenercodigo(View v){
@@ -90,6 +96,8 @@ public class Formulario extends AppCompatActivity {
     }
     class Backgroundtask extends AsyncTask<String,Void,String> {
         String myurl;
+
+       public boolean vaciar_formulario=false;
 
         @Override
         protected String doInBackground(String... voids) {
@@ -113,10 +121,13 @@ public class Formulario extends AppCompatActivity {
                 InputStream inputStream = httpURLConnection.getInputStream();
                 inputStream.close();
                 httpURLConnection.disconnect();
+                vaciar_formulario=true;
                 return "Se hizo el update xd";
             }catch (MalformedURLException e) {
+                vaciar_formulario=false;
                 e.printStackTrace();
             }catch (IOException e) {
+                vaciar_formulario=false;
                 e.printStackTrace();
             }
 
@@ -132,6 +143,16 @@ public class Formulario extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+
+
+            if(result=="Se hizo el update xd") {//Si se pudo hacer el update, se limpia el formulario
+                edt_idmedidor.getText().clear();
+                edt_consumo.getText().clear();
+                edt_observaciones.getText().clear();
+            }
+            else{//Si hay algún error al conectar se mantienen los datos en el formulario para intentar de nuevo
+                Toast.makeText(getApplicationContext(), "error al conectar", Toast.LENGTH_LONG).show();
+            }
         }
 
         @Override

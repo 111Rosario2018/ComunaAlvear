@@ -46,7 +46,7 @@
     </Spinner>
 
     <EditText
-        android:id="@+id/edt_observasiones"
+        android:id="@+id/edt_observaciones"
         android:layout_width="match_parent"
         android:hint="Observaciones"
         android:layout_height="80dp"
